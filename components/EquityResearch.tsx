@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { api } from "@/lib/api";
+import { api, API_URL } from "@/lib/api";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, BarChart, Bar } from "recharts";
 
 type Company = { ticker: string; name?: string; sector?: string; industry?: string; n_chunks: number };
@@ -13,7 +13,7 @@ export default function EquityResearch() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch((process.env.NEXT_PUBLIC_API_URL || "https://equity-research-ai-api.onrender.com") + "/companies")
+    fetch(`${API_URL}/companies`)
       .then(r => r.json()).then(setCompanies)
       .catch(e => setError(String(e)));
   }, []);
